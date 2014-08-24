@@ -61,19 +61,14 @@ class StoreCreditTestCase extends TestCase
 	}	
 	
 	public int getCredit(){
-		return Integer.parseInt(getInputs()[0]);
+		return this.getInputAsInt(0);
 	}
 	
 	public int getNumberOfItems(){
-		return Integer.parseInt(getInputs()[1]);
+		return this.getInputAsInt(1);
 	}
 	
 	public int[] getPrices(){
-		int[] prices = new int[getNumberOfItems()];
-		String[] arrays = getInputs()[2].split(" ");
-		for(int i=0; i<arrays.length&&i<prices.length;i++){
-			prices[i]=Integer.parseInt(arrays[i]);
-		}
-		return prices;
+		return this.getInputAsIntArray(2);
 	}
 }

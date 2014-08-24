@@ -7,6 +7,6 @@ public class SingleLineInputTestCase extends TestCase {
 	}
 	
 	public String getInput(){
-		return getInputs()[0];
+		return this.getInputAsString(0);
 	}
 }
