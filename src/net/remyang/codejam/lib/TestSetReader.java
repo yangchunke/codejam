@@ -6,38 +6,58 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class TestSetReader {
+public class TestSetReader extends TestSetReaderWriterBase {
 	
-	public static TestSet read(String inputFile)
-	{
-		
-        TestSet testSet = new TestSet(); 
+	private BufferedReader _in;
+	
+	public TestSetReader(){
+	}
+	
+	@Override
+	public void open(String file) {
         try
         {
-        	BufferedReader in = new BufferedReader(new FileReader(new File(inputFile)));
-        	try
-        	{
-		        Integer.parseInt(in.readLine());
-		        for (String x = in.readLine(); x != null; x = in.readLine()){
-		        	testSet.addTestCase(x);
-		        }
-		        return testSet;
-	        }
-	        catch(IOException e){        	
-	        }
-	        finally{
-	        	try
-	        	{
-	        		in.close();
-	        	}
-	        	catch(IOException e)
-	        	{
-	        	}
-	        }
-	    }
+    		_in = new BufferedReader(new FileReader(new File(file)));    		
+        }		
         catch(FileNotFoundException e){
-        	
+			e.printStackTrace();
         }
-        return testSet;
+	}
+
+	@Override
+	public void close() {
+        try
+        {
+    		_in.close();
+        }
+        catch(IOException e){        	
+			e.printStackTrace();
+        }
+	}
+
+	public int readInteger()
+	{
+		int ret = 0;
+		try
+		{
+			ret = Integer.parseInt(_in.readLine());
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return ret;		
+	}
+	
+	public String readLine()
+	{
+		String ret = null;
+    	try
+    	{
+    		ret = _in.readLine();
+        }
+        catch(IOException e){        	
+			e.printStackTrace();
+        }
+    	return ret;
 	}
 }

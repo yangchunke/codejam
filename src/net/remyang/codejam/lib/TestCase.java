@@ -1,22 +1,33 @@
 package net.remyang.codejam.lib;
 
-public class TestCase {
+public abstract class TestCase {
 
 	private int _caseNumber;
-	private String _input;
+	private String[] _inputs;
 	private String _output;
 
-	public TestCase(int caseNumber, String input){
+	public TestCase(int caseNumber, int lineOfInputs){
 		_caseNumber = caseNumber;
-		_input = input;
+		_inputs = new String[lineOfInputs];
+	}
+	
+	public void read(TestSetReader reader)
+	{
+		for(int i=0; i<_inputs.length;i++){
+			_inputs[i] = reader.readLine();
+		}
+	}
+	public void write(TestSetWriter writer)
+	{
+		writer.writeOutput(getCaseNumber(), getOutput());
 	}
 	
 	public int getCaseNumber(){
 		return _caseNumber;
 	}
 	
-	public String getInput(){
-		return _input;
+	protected String[] getInputs(){
+		return _inputs;
 	}
 	
 	public String getOutput(){

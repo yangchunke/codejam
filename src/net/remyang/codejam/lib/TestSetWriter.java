@@ -6,27 +6,43 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class TestSetWriter {
-	public static void write(TestSet testSet, String outputFile){
+public class TestSetWriter extends TestSetReaderWriterBase {
+	
+	private BufferedWriter _writer;
+
+	@Override
+	public void open(String file) {
 		try
 	    {
-		    File file = new File(outputFile);
-		    file.createNewFile();	
-		    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-			for(TestCase tc : testSet.getTestCases())
-			{
-				writer.write(String.format("Case #%d: %s", tc.getCaseNumber(), tc.getOutput()));
-		    	writer.newLine();
-		    }
-		    writer.close();
+		    File f = new File(file);
+		    f.createNewFile();	
+		    _writer = new BufferedWriter(new FileWriter(f));
 	    }
 	    catch(FileNotFoundException e)
 	    {
-	        System.out.println("File Not Found");
+			e.printStackTrace();
 	    }
 	    catch(IOException e)
 	    {
-	        System.out.println("something messed up");
-	    }
+			e.printStackTrace();
+	    }		
+	}
+
+	@Override
+	public void close() {
+		try {
+			_writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeOutput(int caseNumber, String output){
+    	try {
+    		_writer.write(String.format("Case #%d: %s", caseNumber, output));
+			_writer.newLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
