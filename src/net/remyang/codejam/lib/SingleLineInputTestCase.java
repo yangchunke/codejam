@@ -5,8 +5,8 @@ public class SingleLineInputTestCase extends TestCase {
 	public SingleLineInputTestCase(int caseNumber) {
 		super(caseNumber, 1);
 	}
-	
-	public String getInput(){
+
+	public String getInput() {
 		return this.getInputAsString(0);
 	}
 }

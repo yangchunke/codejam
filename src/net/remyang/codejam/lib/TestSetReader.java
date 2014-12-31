@@ -7,57 +7,47 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class TestSetReader extends TestSetReaderWriterBase {
-	
+
 	private BufferedReader _in;
-	
-	public TestSetReader(){
+
+	public TestSetReader() {
 	}
-	
+
 	@Override
 	public void open(String file) {
-        try
-        {
-    		_in = new BufferedReader(new FileReader(new File(file)));    		
-        }		
-        catch(FileNotFoundException e){
-			e.printStackTrace();
-        }
+		try {
+			_in = new BufferedReader(new FileReader(new File(file)));
+		} catch (FileNotFoundException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Override
 	public void close() {
-        try
-        {
-    		_in.close();
-        }
-        catch(IOException e){        	
-			e.printStackTrace();
-        }
+		try {
+			_in.close();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
-	public int readInteger()
-	{
+	public int readInteger() {
 		int ret = 0;
-		try
-		{
+		try {
 			ret = Integer.parseInt(_in.readLine());
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
 		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-		return ret;		
+		return ret;
 	}
-	
-	public String readLine()
-	{
+
+	public String readLine() {
 		String ret = null;
-    	try
-    	{
-    		ret = _in.readLine();
-        }
-        catch(IOException e){        	
-			e.printStackTrace();
-        }
-    	return ret;
+		try {
+			ret = _in.readLine();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+		return ret;
 	}
 }

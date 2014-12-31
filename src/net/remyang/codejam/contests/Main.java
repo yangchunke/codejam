@@ -15,27 +15,25 @@ public class Main {
 		System.out.println("Input: " + args[1]);
 		System.out.println("Output: " + args[2]);
 
-		Class<TestCaseResolver> cls = null;
 		try {
-			cls = (Class<TestCaseResolver>) Class.forName(pkg + args[0]);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		TestCaseResolver inst = null;
-		try {
+			Class<TestCaseResolver> cls = (Class<TestCaseResolver>) Class
+					.forName(pkg + args[0]);
 			if (cls != null) {
-				inst = cls.newInstance();
+				TestCaseResolver inst = cls.newInstance();
+				if (inst != null) {
+					long start = System.currentTimeMillis();
+					TestSet ts = new TestSet(inst, path + args[1], path
+							+ args[2]);
+					ts.run();
+					System.out.println("Elapsed: "
+							+ (System.currentTimeMillis() - start) + " ms");
+				}
 			}
+		} catch (ClassNotFoundException e) {
+			System.err.println(e.getMessage());
 		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 
-		if (inst!=null){
-			long start = System.nanoTime();
-			TestSet ts = new TestSet(inst, path + args[1], path + args[2]);
-			ts.run();
-			System.out.println("Elapsed: " + (System.nanoTime() - start));
-		}
 	}
 }
